@@ -1,53 +1,37 @@
+import { FaFilePdf,FaStar, FaHeart, FaBolt, FaGlobe } from "react-icons/fa";
 
 export const cardConfig = [
     {
-        title: "Card 1",
-        content: "This is the first card content. It contains some details.",
+        title: "JPEG to PDF",
+        content: "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
         link: "/card1",
+        Icon: FaFilePdf,
+        iconColor: "text-red-700"
     },
     {
-        title: "Card 2",
-        content: "This is the second card content. It contains some details.",
-        link: "/card2",
-    },
-    {
-        title: "Card 3",
-        content: "This is the third card content. It contains some details.",
-        link: "/card3",
-    },
-    {
-        title: "Card 4",
-        content: "This is the fourth card content. It contains some details.",
-        link: "/card4",
-    },
-    {
-        title: "Card 1",
-        content: "This is the first card content. It contains some details.",
+        title: "MERGE PDF",
+        content: "Easily merge multiple PDFs into a single file while maintaining quality and formatting.",
         link: "/card1",
+        Icon: FaFilePdf,
+        iconColor: "text-red-700"
     },
     {
-        title: "Card 2",
-        content: "This is the second card content. It contains some details.",
-        link: "/card2",
-    },
-    {
-        title: "Card 3",
-        content: "This is the third card content. It contains some details.",
+        title: "SPLIT PDF",
+        content: "Quickly split a PDF into multiple files with precision, keeping the original quality intact.",
         link: "/card3",
+        Icon: FaBolt,
+        iconColor: "text-cyan-500"
     },
     {
-        title: "Card 4",
-        content: "This is the fourth card content. It contains some details.",
-        link: "/card4",
+        title: "PPT to PDF",
+        content: "Convert your PowerPoint presentations to PDF effortlessly while preserving layout and design",
+        link: "/card1",
+        Icon: FaStar,
     },
     {
-        title: "Card 4",
-        content: "This is the fourth card content. It contains some details.",
+        title: "Compress PDF",
+        content: "Reduce your PDF file size while maintaining quality—fast, secure, and easy to use.",
         link: "/card4",
-    },
-    {
-        title: "Card 4",
-        content: "This is the fourth card content. It contains some details.",
-        link: "/card4",
+        Icon: FaGlobe,
     }
 ];

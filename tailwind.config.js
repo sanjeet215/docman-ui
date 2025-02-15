@@ -23,7 +23,11 @@ module.exports = {
         darkButtonHoverCust: '#E17564',
         darkTextCust: '#FFFDF0',
 
-},
+      },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+      }
     },
   },
   plugins: [],

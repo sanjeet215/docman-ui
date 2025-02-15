@@ -3,18 +3,18 @@ import Link from "next/link";
 const Navbar = () => {
     return (
         <nav>
-            <ul className="flex space-x-6">
+            <ul className="font-poppins flex space-x-6">
                 <li>
-                    <Link href="/" className="hover:text-blue-500">Home</Link>
+                    <Link href="/" className="font-poppins hover:text-lightButtonHoverCust">Home</Link>
                 </li>
                 <li>
-                    <Link href="/about" className="hover:text-blue-500">About</Link>
+                    <Link href="/about" className="font-poppins hover:text-lightButtonHoverCust">About</Link>
                 </li>
                 <li>
-                    <Link href="/services" className="hover:text-blue-500">Services</Link>
+                    <Link href="/services" className="font-poppins hover:text-lightButtonHoverCust">Services</Link>
                 </li>
                 <li>
-                    <Link href="/contact" className="hover:text-blue-500">Contact</Link>
+                    <Link href="/contact" className="font-poppins hover:text-lightButtonHoverCust">Contact</Link>
                 </li>
             </ul>
         </nav>

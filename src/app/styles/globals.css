@@ -1,24 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*:root {*/
-/*  --background: #F2EFE7;*/
-/*  --foreground: #171717;*/
-/*}*/
-
-/*@media (prefers-color-scheme: dark) {*/
-/*  :root {*/
-/*    --background: #0a0a0a;*/
-/*    --foreground: #ededed;*/
-/*  }*/
-/*}*/
-
-/*body {*/
-/*  color: var(--foreground);*/
-/*  background: var(--background);*/
-/*  font-family: Arial, Helvetica, sans-serif;*/
-/*}*/
+* {
+    font-family: 'Merriweather', serif;
+}
 
 html.light {
     background-color: theme("colors.lightBgCust");
@@ -28,4 +16,10 @@ html.light {
 html.dark {
     background-color: theme("colors.darkBgCust");
     color: theme("colors.darkTextCust");
+}
+
+body {
+    font-family: 'Merriweather', serif;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
 }
