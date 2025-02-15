@@ -40,4 +40,14 @@ export const cardConfig = [
         content: "This is the fourth card content. It contains some details.",
         link: "/card4",
     },
+    {
+        title: "Card 4",
+        content: "This is the fourth card content. It contains some details.",
+        link: "/card4",
+    },
+    {
+        title: "Card 4",
+        content: "This is the fourth card content. It contains some details.",
+        link: "/card4",
+    }
 ];

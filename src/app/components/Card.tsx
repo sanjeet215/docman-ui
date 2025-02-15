@@ -7,7 +7,7 @@ const Card = ({ title, content, link }: { title: string; content: string; link: 
     return (
         <Link href={link} passHref>
             <div
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 m-4 w-40 h-40 hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between cursor-pointer"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 m-4 w-100 h-40 hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between cursor-pointer"
             >
                 <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white overflow-hidden text-ellipsis whitespace-nowrap">
                     {title}

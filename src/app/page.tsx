@@ -6,7 +6,7 @@ import { cardConfig } from './components/cardConfig';
 
 const Page = () => {
     return (
-        <div className="min-h-screen bg-light-bg dark:bg-dark-bg text-gray-900 dark:text-white">
+        <div className="min-h-screen bg-lightBgCust dark:bg-darkBgCust text-gray-900 dark:text-white">
             <main className="p-6">
                 <h1 className="text-3xl font-bold mb-6 text-center">Main Content</h1>
                 <div className="flex flex-wrap justify-center gap-4">
