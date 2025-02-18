@@ -4,7 +4,7 @@ export const cardConfig = [
     {
         title: "JPEG to PDF",
         content: "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
-        link: "/card1",
+        link: "/jpeg-to-pdf",
         Icon: FaFilePdf,
         iconColor: "text-red-700"
     },
