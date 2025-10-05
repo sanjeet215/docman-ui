@@ -220,60 +220,91 @@ const JpegToPdf: React.FC = () => {
                                 </DndContext>
                             </div>
 
-                            {/* RIGHT: Settings */}
-                            <div
+                            {/* RIGHT: Settings Panel */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.3 }}
                                 className="md:col-span-1 col-span-1"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <div className="p-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm">
-                                    <h3 className="font-medium mb-2">Settings</h3>
+                                <div className="p-4 bg-white/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 backdrop-blur-sm">
+                                    <h3 className="font-semibold text-lg text-gray-700 dark:text-gray-100 mb-4 flex items-center justify-between">
+                                        ⚙️ Settings
+                                        <span className="text-xs text-gray-400 font-normal">PDF Options</span>
+                                    </h3>
 
-                                    <label className="block text-sm mb-1">Orientation</label>
-                                    <select
-                                        value={orientation}
-                                        onChange={(e) =>
-                                            setOrientation(e.target.value as "portrait" | "landscape")
-                                        }
-                                        className="w-full p-2 rounded border dark:bg-gray-800 dark:border-gray-600 mb-3 text-sm"
-                                    >
-                                        <option value="portrait"> 🚀 Portrait</option>
-                                        <option value="landscape">Landscape</option>
-                                    </select>
+                                    {/* Orientation */}
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                                            Orientation
+                                        </label>
+                                        <select
+                                            value={orientation}
+                                            onChange={(e) =>
+                                                setOrientation(e.target.value as "portrait" | "landscape")
+                                            }
+                                            className="w-full p-2 rounded-lg border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+                                        >
+                                            <option value="portrait">Portrait</option>
+                                            <option value="landscape">Landscape</option>
+                                        </select>
+                                    </div>
 
-                                    <label className="block text-sm mb-1">Page Size</label>
-                                    <select
-                                        value={pageSize}
-                                        onChange={(e) =>
-                                            setPageSize(e.target.value as "A4" | "Letter" | "Legal")
-                                        }
-                                        className="w-full p-2 rounded border dark:bg-gray-800 dark:border-gray-600 mb-3 text-sm"
-                                    >
-                                        <option value="A4">A4</option>
-                                        <option value="Letter">Letter</option>
-                                        <option value="Legal">Legal</option>
-                                    </select>
+                                    {/* Divider */}
+                                    <hr className="border-gray-200 dark:border-gray-700 my-3" />
 
-                                    <label className="block text-sm mb-1">Border Type</label>
-                                    <select
-                                        value={borderType}
-                                        onChange={(e) =>
-                                            setBorderType(
-                                                e.target.value as
-                                                    | "none"
-                                                    | "include-margins"
-                                                    | "thin"
-                                                    | "dotted"
-                                            )
-                                        }
-                                        className="w-full p-2 rounded border dark:bg-gray-800 dark:border-gray-600 mb-3 text-sm"
-                                    >
-                                        <option value="include-margins">Include Margins</option>
-                                        <option value="none">No Border</option>
-                                        <option value="thin">Thin</option>
-                                        <option value="dotted">Dotted</option>
-                                    </select>
+                                    {/* Page Size */}
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                                            Page Size
+                                        </label>
+                                        <select
+                                            value={pageSize}
+                                            onChange={(e) =>
+                                                setPageSize(e.target.value as "A4" | "Letter" | "Legal")
+                                            }
+                                            className="w-full p-2 rounded-lg border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+                                        >
+                                            <option value="A4">A4</option>
+                                            <option value="Letter">Letter</option>
+                                            <option value="Legal">Legal</option>
+                                        </select>
+                                    </div>
 
-                                    <div className="flex items-center space-x-2 mt-1">
+                                    {/* Divider */}
+                                    <hr className="border-gray-200 dark:border-gray-700 my-3" />
+
+                                    {/* Border Type */}
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+                                            Border Type
+                                        </label>
+                                        <select
+                                            value={borderType}
+                                            onChange={(e) =>
+                                                setBorderType(
+                                                    e.target.value as
+                                                        | "none"
+                                                        | "include-margins"
+                                                        | "thin"
+                                                        | "dotted"
+                                                )
+                                            }
+                                            className="w-full p-2 rounded-lg border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+                                        >
+                                            <option value="include-margins">Include Margins</option>
+                                            <option value="none">No Border</option>
+                                            <option value="thin">Thin</option>
+                                            <option value="dotted">Dotted</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Divider */}
+                                    <hr className="border-gray-200 dark:border-gray-700 my-3" />
+
+                                    {/* Merge Option */}
+                                    <div className="flex items-center space-x-2">
                                         <input
                                             id="mergeAll"
                                             type="checkbox"
@@ -282,14 +313,17 @@ const JpegToPdf: React.FC = () => {
                                                 userToggledMerge.current = true;
                                                 setMergeAll(e.target.checked);
                                             }}
-                                            className="w-4 h-4 rounded cursor-pointer accent-pink-500"
+                                            className="w-4 h-4 accent-pink-500 cursor-pointer rounded focus:ring-2 focus:ring-pink-400"
                                         />
-                                        <label htmlFor="mergeAll" className="text-sm">
-                                            Merge all images
+                                        <label
+                                            htmlFor="mergeAll"
+                                            className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none"
+                                        >
+                                            Merge all images into one PDF
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                     )}
                 </div>
