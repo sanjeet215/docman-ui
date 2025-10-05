@@ -18,12 +18,13 @@ type FileWithPreview = {
     preview: string;
 };
 
+// SortablePreview: expect id string for onRemove This section renders the images on drop
 const SortablePreview = ({
                              item,
                              onRemove,
                          }: {
     item: FileWithPreview;
-    onRemove: (id: string) => void;
+    onRemove: (id: string) => void;   // <-- expect id
 }) => {
     const { attributes, listeners, setNodeRef, transform, transition } =
         useSortable({ id: item.id });
@@ -43,15 +44,17 @@ const SortablePreview = ({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.18 }}
-            className="relative rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700"
+            transition={{ duration: 0.4 }}
+            className="relative aspect-square w-full rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700"
         >
-            <img
-                src={item.preview}
-                alt={item.file.name}
-                className="object-cover w-full h-28"
-                draggable={false}
-            />
+            <div className="w-full h-full flex items-center justify-center bg-gray-50">
+                <img
+                    src={item.preview}
+                    alt={item.file.name}
+                    className="w-full h-full object-contain p-2"
+                    draggable={false}
+                />
+            </div>
 
             <div className="absolute left-2 top-2 bg-black bg-opacity-50 text-white text-xs px-2 py-0.5 rounded max-w-[70%] truncate">
                 {item.file.name}
@@ -62,7 +65,7 @@ const SortablePreview = ({
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                     e.stopPropagation();
-                    onRemove(item.id);
+                    onRemove(item.id);  // <-- pass id (string)
                 }}
                 title="Remove image"
                 className="absolute right-2 top-2 bg-red-600 bg-opacity-90 hover:bg-opacity-100 text-white text-xs px-2 py-0.5 rounded"
@@ -72,6 +75,7 @@ const SortablePreview = ({
         </motion.div>
     );
 };
+
 
 const JpegToPdf: React.FC = () => {
     const idCounter = useRef(0);
@@ -201,17 +205,14 @@ const JpegToPdf: React.FC = () => {
                                     collisionDetection={closestCenter}
                                     onDragEnd={handleDragEnd}
                                 >
-                                    <SortableContext
-                                        items={files.map((f) => f.id)}
-                                        strategy={rectSortingStrategy}
-                                    >
-                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                                    <SortableContext items={files.map((f) => f.id)} strategy={rectSortingStrategy}>
+                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 w-full px-0">
                                             <AnimatePresence>
-                                                {files.map((f) => (
+                                                {files.map((file) => (
                                                     <SortablePreview
-                                                        key={f.id}
-                                                        item={f}
-                                                        onRemove={handleRemove}
+                                                        key={file.id}
+                                                        item={file}
+                                                        onRemove={handleRemove} // handleRemove expects (id: string)
                                                     />
                                                 ))}
                                             </AnimatePresence>
