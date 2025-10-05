@@ -47,7 +47,7 @@ const SortablePreview = ({
             transition={{ duration: 0.4 }}
             className="relative aspect-square w-full rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700"
         >
-            <div className="w-full h-full flex items-center justify-center bg-gray-50">
+            <div className="w-full h-full flex items-center justify-center dark:bg-gray-500">
                 <img
                     src={item.preview}
                     alt={item.file.name}
