@@ -12,6 +12,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../components/Button";
+import { Select, SelectOption } from "../components/Select";
 
 type FileWithPreview = {
     id: string;
@@ -46,9 +47,9 @@ const SortablePreview = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.4 }}
-            className="relative aspect-square w-full rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700"
+            className="relative aspect-square w-full rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
         >
-            <div className="w-full h-full flex items-center justify-center dark:bg-gray-500">
+            <div className="w-full h-full flex items-center justify-center bg-white dark:bg-gray-900">
                 <img
                     src={item.preview}
                     alt={item.file.name}
@@ -241,16 +242,14 @@ const JpegToPdf: React.FC = () => {
                                         <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
                                             Orientation
                                         </label>
-                                        <select
+                                        <Select
                                             value={orientation}
-                                            onChange={(e) =>
-                                                setOrientation(e.target.value as "portrait" | "landscape")
-                                            }
-                                            className="w-full p-2 rounded-lg border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
-                                        >
-                                            <option value="portrait">Portrait</option>
-                                            <option value="landscape">Landscape</option>
-                                        </select>
+                                            onChange={(v) => setOrientation(v)}
+                                            options={[
+                                                { value: "portrait", label: "Portrait" },
+                                                { value: "landscape", label: "Landscape" },
+                                            ] as SelectOption<"portrait" | "landscape">[]}
+                                        />
                                     </div>
 
                                     {/* Divider */}
@@ -261,17 +260,15 @@ const JpegToPdf: React.FC = () => {
                                         <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
                                             Page Size
                                         </label>
-                                        <select
+                                        <Select
                                             value={pageSize}
-                                            onChange={(e) =>
-                                                setPageSize(e.target.value as "A4" | "Letter" | "Legal")
-                                            }
-                                            className="w-full p-2 rounded-lg border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
-                                        >
-                                            <option value="A4">A4</option>
-                                            <option value="Letter">Letter</option>
-                                            <option value="Legal">Legal</option>
-                                        </select>
+                                            onChange={(v) => setPageSize(v)}
+                                            options={[
+                                                { value: "A4", label: "A4" },
+                                                { value: "Letter", label: "Letter" },
+                                                { value: "Legal", label: "Legal" },
+                                            ] as SelectOption<"A4" | "Letter" | "Legal">[]}
+                                        />
                                     </div>
 
                                     {/* Divider */}
@@ -282,31 +279,23 @@ const JpegToPdf: React.FC = () => {
                                         <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
                                             Border Type
                                         </label>
-                                        <select
+                                        <Select
                                             value={borderType}
-                                            onChange={(e) =>
-                                                setBorderType(
-                                                    e.target.value as
-                                                        | "none"
-                                                        | "include-margins"
-                                                        | "thin"
-                                                        | "dotted"
-                                                )
-                                            }
-                                            className="w-full p-2 rounded-lg border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
-                                        >
-                                            <option value="include-margins">Include Margins</option>
-                                            <option value="none">No Border</option>
-                                            <option value="thin">Thin</option>
-                                            <option value="dotted">Dotted</option>
-                                        </select>
+                                            onChange={(v) => setBorderType(v)}
+                                            options={[
+                                                { value: "include-margins", label: "Include Margins" },
+                                                { value: "none", label: "No Border" },
+                                                { value: "thin", label: "Thin" },
+                                                { value: "dotted", label: "Dotted" },
+                                            ] as SelectOption<"none" | "include-margins" | "thin" | "dotted">[]}
+                                        />
                                     </div>
 
                                     {/* Divider */}
                                     <hr className="border-gray-200 dark:border-gray-700 my-3" />
 
                                     {/* Merge Option */}
-                                    <div className="flex items-center space-x-2">
+                                    <label htmlFor="mergeAll" className="flex items-center space-x-3 cursor-pointer select-none">
                                         <input
                                             id="mergeAll"
                                             type="checkbox"
@@ -315,15 +304,18 @@ const JpegToPdf: React.FC = () => {
                                                 userToggledMerge.current = true;
                                                 setMergeAll(e.target.checked);
                                             }}
-                                            className="w-4 h-4 accent-pink-500 cursor-pointer rounded focus:ring-2 focus:ring-pink-400"
+                                            className="peer sr-only"
                                         />
-                                        <label
-                                            htmlFor="mergeAll"
-                                            className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none"
+                                        <span
+                                            aria-hidden="true"
+                                            className="grid place-items-center h-5 w-5 rounded-md border border-gray-300 bg-white shadow-sm hover:border-gray-400 transition-all duration-150 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-400 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:shadow peer-checked:ring-1 peer-checked:ring-blue-300 peer-checked:scale-[0.98] dark:border-gray-600 dark:bg-gray-900 dark:hover:border-gray-500 dark:peer-checked:bg-pink-500 dark:peer-checked:ring-pink-300 [&>svg]:hidden peer-checked:[&>svg]:block"
                                         >
-                                            Merge all images into one PDF
-                                        </label>
-                                    </div>
+                                            <svg className="h-3.5 w-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </span>
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Merge all images into one PDF</span>
+                                    </label>
                                 </div>
                             </motion.div>
                         </div>

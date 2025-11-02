@@ -27,6 +27,25 @@ body {
     transition: background-color 200ms ease, color 200ms ease;
 }
 
+/* Autofill fixes: keep light theme inputs white and dark theme inputs dark */
+html.light input:-webkit-autofill,
+html.light textarea:-webkit-autofill,
+html.light select:-webkit-autofill {
+  -webkit-text-fill-color: #111827; /* gray-900 */
+  caret-color: #111827;
+  box-shadow: 0 0 0px 1000px #ffffff inset; /* bg-white */
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+html.dark input:-webkit-autofill,
+html.dark textarea:-webkit-autofill,
+html.dark select:-webkit-autofill {
+  -webkit-text-fill-color: #e5e7eb; /* gray-200 */
+  caret-color: #e5e7eb;
+  box-shadow: 0 0 0px 1000px #111827 inset; /* gray-900 */
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
     letter-spacing: 0.2px;

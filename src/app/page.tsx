@@ -9,10 +9,10 @@ const Page = () => {
         <div className="min-h-screen bg-lightBgCust dark:bg-darkBgCust text-gray-900 dark:text-white">
             <main className="p-6">
                 {/* Hero */}
-                <section className="relative overflow-hidden rounded-2xl p-8 md:p-10 mb-6 bg-gradient-to-br from-lightButtonCust/15 via-transparent to-lightBgSecondarCust/30 dark:from-darkBgSecondarCust/30 dark:via-transparent dark:to-darkBgCust border border-gray-200/60 dark:border-gray-700">
+                <section className="relative overflow-hidden rounded-xl p-5 md:p-6 mb-4 bg-gradient-to-br from-lightButtonCust/10 via-transparent to-lightBgSecondarCust/20 dark:from-darkBgSecondarCust/20 dark:via-transparent dark:to-darkBgCust/60 border border-gray-200/60 dark:border-gray-700/70">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h1 className="font-poppins text-3xl md:text-4xl font-semibold mb-3">Work Smarter with Your Documents</h1>
-                        <p className="font-roboto text-base md:text-lg text-gray-700 dark:text-gray-300 mb-5">
+                        <h1 className="font-poppins text-2xl md:text-2xl font-semibold mb-2">Work Smarter with Your Documents</h1>
+                        <p className="font-poppins text-[12px] sm:text-sm md:text-base lg:text-lg tracking-tight text-gray-600 dark:text-gray-300 whitespace-nowrap">
                             Convert, compress, and organize PDFs and images in seconds — no sign-up required.
                         </p>
                     </div>

@@ -52,7 +52,7 @@ const ContactPage: React.FC = () => {
       <main className="max-w-3xl mx-auto p-6">
         {/* Hero */}
         <section className="relative overflow-hidden rounded-2xl p-8 md:p-10 mb-6 bg-gradient-to-br from-lightButtonCust/15 via-transparent to-lightBgSecondarCust/30 dark:from-darkBgSecondarCust/30 dark:via-transparent dark:to-darkBgCust border border-gray-200/60 dark:border-gray-700 text-center">
-          <h1 className="font-poppins text-3xl md:text-4xl font-semibold mb-3">Get in touch</h1>
+          <h1 className="font-poppins text-2xl md:text-2xl font-semibold mb-3">Get in touch</h1>
           <p className="font-roboto text-base md:text-lg text-gray-700 dark:text-gray-300">
             Have a question, feedback, or feature request? Send us a message below.
           </p>
@@ -72,7 +72,7 @@ const ContactPage: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 dark:placeholder-gray-400"
               placeholder="Your name"
             />
           </div>
@@ -87,7 +87,7 @@ const ContactPage: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 dark:placeholder-gray-400"
               placeholder="you@example.com"
             />
           </div>
@@ -102,7 +102,7 @@ const ContactPage: React.FC = () => {
               onChange={(e) => setMessage(e.target.value)}
               required
               rows={5}
-              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className="w-full p-3 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-200 dark:placeholder-gray-400"
               placeholder="How can we help?"
             />
           </div>

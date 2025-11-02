@@ -7,7 +7,7 @@ export default function AboutPage() {
       <main className="max-w-5xl mx-auto p-6">
         {/* Hero */}
         <section className="relative overflow-hidden rounded-2xl p-8 md:p-10 mb-6 bg-gradient-to-br from-lightButtonCust/15 via-transparent to-lightBgSecondarCust/30 dark:from-darkBgSecondarCust/30 dark:via-transparent dark:to-darkBgCust border border-gray-200/60 dark:border-gray-700 text-center">
-          <h1 className="font-poppins text-3xl md:text-4xl font-semibold mb-3">About Us</h1>
+          <h1 className="font-poppins text-2xl md:text-3xl font-semibold mb-3">About Us</h1>
           <p className="font-roboto text-base md:text-lg text-gray-700 dark:text-gray-300">
             We build modern, privacy‑first tools that simplify everyday work. Our mission is to create fast,
             intuitive experiences that help people and teams get more done with less effort.
