@@ -1,11 +1,11 @@
-import { FaFilePdf,FaStar, FaHeart, FaBolt, FaGlobe } from "react-icons/fa";
+import {FaFilePdf, FaStar, FaHeart, FaBolt, FaGlobe, FaFileImage, FaFileContract} from "react-icons/fa";
 
 export const cardConfig = [
     {
         title: "JPEG to PDF",
         content: "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
         link: "/jpeg-to-pdf",
-        Icon: FaFilePdf,
+        Icon: FaFileImage,
         iconColor: "text-red-700"
     },
     {
@@ -33,5 +33,17 @@ export const cardConfig = [
         content: "Reduce your PDF file size while maintaining quality—fast, secure, and easy to use.",
         link: "/card4",
         Icon: FaGlobe,
+    },
+    {
+        title: "Compress PDF",
+        content: "Reduce your PDF file size while maintaining quality—fast, secure, and easy to use.",
+        link: "/card4",
+        Icon: FaFileContract,
+    },
+    {
+        title: "Compress PDF",
+        content: "Reduce your PDF file size while maintaining quality—fast, secure, and easy to use.",
+        link: "/card4",
+        Icon: FaHeart,
     }
 ];
