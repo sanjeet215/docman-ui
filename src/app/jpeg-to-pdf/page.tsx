@@ -11,6 +11,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "../components/Button";
 
 type FileWithPreview = {
     id: string;
@@ -229,7 +230,7 @@ const JpegToPdf: React.FC = () => {
                                 className="md:col-span-1 col-span-1"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <div className="p-4 bg-white/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 backdrop-blur-sm">
+                                <div className="p-4 bg-white/90 dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 backdrop-blur-sm">
                                     <h3 className="font-semibold text-lg text-gray-700 dark:text-gray-100 mb-4 flex items-center justify-between">
                                         ⚙️ Settings
                                         <span className="text-xs text-gray-400 font-normal">PDF Options</span>
@@ -338,17 +339,9 @@ const JpegToPdf: React.FC = () => {
                     transition={{ duration: 0.3 }}
                     className="max-w-full mx-auto mt-4 flex justify-end w-full"
                 >
-                    <button
-                        onClick={handleConvert}
-                        disabled={files.length === 0}
-                        className={`px-5 py-2 rounded-lg font-semibold transition ${
-                            files.length === 0
-                                ? "bg-gray-400 text-white cursor-not-allowed"
-                                : "bg-darkButtonCust hover:bg-darkBgSecondarCust text-white"
-                        }`}
-                    >
+                    <Button onClick={handleConvert} disabled={files.length === 0}>
                         Convert to PDF
-                    </button>
+                    </Button>
                 </motion.div>
             )}
         </div>

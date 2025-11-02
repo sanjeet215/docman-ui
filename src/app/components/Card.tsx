@@ -19,11 +19,11 @@ const Card = ({
 }) => {
     return (
         <Link href={link} passHref>
-            <div className="bg-lightBgCust dark:bg-gray-800 rounded-md shadow-lg p-4 m-3 max-w-xs h-40 hover:shadow-2xl transition-all duration-300 flex items-center gap-3 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transform hover:scale-105">
+            <div className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl border border-gray-200/70 dark:border-gray-700 shadow-sm p-4 m-3 max-w-xs h-40 transition-all duration-300 ease-out flex items-center gap-3 cursor-pointer hover:shadow-lg hover:-translate-y-0.5 hover:ring-1 hover:ring-lightButtonHoverCust/40 dark:hover:ring-darkButtonHoverCust/40">
 
                 {/* Icon Section */}
                 <div className="flex items-center justify-center w-1/6">
-                    <Icon className={`text-3xl ${iconColor} transition-transform duration-300 hover:scale-110`} />
+                    <Icon className={`text-3xl ${iconColor} transition-transform duration-300 group-hover:scale-110`} />
                 </div>
 
                 {/* Content Section */}

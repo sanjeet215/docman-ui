@@ -4,8 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-    font-family: 'Merriweather', serif;
+:root {
+  color-scheme: light dark;
 }
 
 html.light {
@@ -19,7 +19,41 @@ html.dark {
 }
 
 body {
-    font-family: 'Merriweather', serif;
-    line-height: 1.6;
-    letter-spacing: 0.6px;
+    font-family: 'Roboto', ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+    line-height: 1.65;
+    letter-spacing: 0.2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 200ms ease, color 200ms ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+    letter-spacing: 0.2px;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.3); /* blue-500/30 */
+}
+
+:focus-visible {
+  outline: 2px solid #60A5FA; /* blue-400 */
+  outline-offset: 2px;
+}
+
+a {
+  text-underline-offset: 2px;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

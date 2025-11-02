@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Button } from "../components/Button";
 
 const ContactPage: React.FC = () => {
   const [name, setName] = useState("");
@@ -49,9 +50,10 @@ const ContactPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-lightBgCust dark:bg-darkBgCust text-gray-900 dark:text-white">
       <main className="max-w-3xl mx-auto p-6">
-        <section className="text-center p-6">
-          <h1 className="font-poppins text-3xl font-semibold mb-2">Contact Us</h1>
-          <p className="font-roboto text-base text-gray-600 dark:text-gray-300">
+        {/* Hero */}
+        <section className="relative overflow-hidden rounded-2xl p-8 md:p-10 mb-6 bg-gradient-to-br from-lightButtonCust/15 via-transparent to-lightBgSecondarCust/30 dark:from-darkBgSecondarCust/30 dark:via-transparent dark:to-darkBgCust border border-gray-200/60 dark:border-gray-700 text-center">
+          <h1 className="font-poppins text-3xl md:text-4xl font-semibold mb-3">Get in touch</h1>
+          <p className="font-roboto text-base md:text-lg text-gray-700 dark:text-gray-300">
             Have a question, feedback, or feature request? Send us a message below.
           </p>
         </section>
@@ -106,15 +108,13 @@ const ContactPage: React.FC = () => {
           </div>
 
           <div className="flex items-center justify-between">
-            <button
+            <Button
               type="submit"
               disabled={status === "loading"}
-              className={`px-5 py-2 rounded-lg font-semibold transition ${
-                status === "loading" ? "bg-gray-400 cursor-not-allowed" : "bg-darkButtonCust hover:bg-darkBgSecondarCust text-white"
-              }`}
+              aria-busy={status === "loading"}
             >
               {status === "loading" ? "Sending..." : "Send Message"}
-            </button>
+            </Button>
 
             {status === "success" && (
               <span className="text-green-600 dark:text-green-400 text-sm">Thanks! We will be in touch.</span>
