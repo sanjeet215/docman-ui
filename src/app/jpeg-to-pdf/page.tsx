@@ -13,6 +13,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../components/Button";
 import { Select, SelectOption } from "../components/Select";
+import { imageToPdf } from "../services/pdfService";
 
 type FileWithPreview = {
     id: string;
@@ -111,7 +112,7 @@ const JpegToPdf: React.FC = () => {
         setFiles((prev) => [...prev, ...newFiles]);
     };
 
-    const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: { "image/jpeg": [".jpg", ".jpeg"], "image/png": [".png"] },
         onDrop,
         multiple: true
@@ -154,8 +155,29 @@ const JpegToPdf: React.FC = () => {
     };
 
     const handleConvert = async () => {
-        console.log({ files, orientation, pageSize, borderType, mergeAll });
-        alert("Convert action triggered — implement PDF generation here.");
+        if (files.length === 0) return;
+        try {
+            const blob = await imageToPdf(
+                files.map(f => f.file),
+                { orientation, pageSize, borderType, mergeAll }
+            );
+
+            const downloadName = files.length === 1
+                ? `${files[0].file.name.replace(/\.[^.]+$/, "")}.pdf`
+                : "output.pdf";
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = downloadName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        } catch (e) {
+            console.error(e);
+            alert(e instanceof Error ? e.message : "Conversion failed");
+        }
     };
 
     return (
