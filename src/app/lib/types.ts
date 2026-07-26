@@ -19,7 +19,14 @@ export interface ImageToPdfDTO {
   mergeAll: boolean;
 }
 
-export type CompressPDFDTO = Record<string, never>;
+export interface CompressPDFDTO {
+  fileName: string;
+  pageSize: PageSize;
+  maxImageWidth: number | null;
+  maxImageHeight: number | null;
+  compressionQuality: number;
+  mergeAll: boolean;
+}
 
 export type WaterMarkProp = Record<string, never>;
 

@@ -34,7 +34,7 @@ export default function AboutPage() {
                 SJ
               </div>
               <div>
-                <p className="font-poppins text-sm font-semibold">Sanj</p>
+                <p className="font-poppins text-sm font-semibold">Sanjeet Mohanty</p>
                 <p className="font-roboto text-xs text-gray-600 dark:text-gray-400">Founder & Product</p>
               </div>
             </div>
@@ -45,7 +45,7 @@ export default function AboutPage() {
                 AE
               </div>
               <div>
-                <p className="font-poppins text-sm font-semibold">Alex</p>
+                <p className="font-poppins text-sm font-semibold">Aaradhya Mohanty</p>
                 <p className="font-roboto text-xs text-gray-600 dark:text-gray-400">Engineering</p>
               </div>
             </div>

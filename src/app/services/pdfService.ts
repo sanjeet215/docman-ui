@@ -23,6 +23,7 @@ export async function imageToPdf(
     pageSize: PageSize;
     borderType: UIBorderType;
     mergeAll: boolean;
+    compressOutput?: boolean;
     fileName?: string;
   }
 ): Promise<Blob> {
@@ -36,10 +37,10 @@ export async function imageToPdf(
     isMergePDF: false,
     isSplitPDF: false,
     isWatermarkPDF: false,
-    isCompressPDF: false,
+    isCompressPDF: opts.compressOutput ?? true,
     isExtractText: false,
-    compressionRequired: false,
-    compressionQuality: 0,
+    compressionRequired: opts.compressOutput ?? true,
+    compressionQuality: opts.compressOutput === false ? 0 : 70,
     watermarkRequired: false,
     imageToPdfDTO: {
       orientation: opts.orientation,
@@ -47,7 +48,14 @@ export async function imageToPdf(
       borderType: mapBorderType(opts.borderType),
       mergeAll: opts.mergeAll,
     },
-    compressPDFDTO: null,
+    compressPDFDTO: opts.compressOutput === false ? null : {
+      fileName,
+      pageSize: opts.pageSize,
+      maxImageWidth: null,
+      maxImageHeight: null,
+      compressionQuality: 70,
+      mergeAll: false,
+    },
     waterMarkProp: null,
   };
 
@@ -57,4 +65,43 @@ export async function imageToPdf(
     throw new Error(text || `Failed to convert images to PDF (status ${res.status})`);
   }
   return await res.blob();
+}
+
+export async function mergePdfs(files: File[]): Promise<Blob> {
+  const form = new FormData();
+  files.forEach((file) => form.append("files", file, file.name));
+
+  const response = await fetch("/api/pdf/merge", {
+    method: "POST",
+    body: form,
+  });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to merge PDFs (status ${response.status})`);
+  }
+  return response.blob();
+}
+
+export async function compressPdfs(
+  files: File[],
+  options: { pageSize: "A4" | "Letter" | "Legal"; compressionQuality: number; mergeAll: boolean }
+): Promise<{ blob: Blob; fileName: string }> {
+  const form = new FormData();
+  files.forEach((file) => form.append("files", file, file.name));
+  form.append(
+    "compressPDFDTO",
+    new Blob([JSON.stringify(options)], { type: "application/json" })
+  );
+
+  const response = await fetch("/api/pdf/compress", { method: "POST", body: form });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to compress PDFs (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^"]+)"?/i);
+  return {
+    blob: await response.blob(),
+    fileName: match?.[1] ?? (options.mergeAll ? "compressed-merged.pdf" : "compressed-pdfs.zip"),
+  };
 }

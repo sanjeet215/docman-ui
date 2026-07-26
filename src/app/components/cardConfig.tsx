@@ -1,49 +1,25 @@
-import {FaFilePdf, FaStar, FaHeart, FaBolt, FaGlobe, FaFileImage, FaFileContract} from "react-icons/fa";
+import { FileImage, Files, Minimize2 } from "lucide-react";
 
 export const cardConfig = [
-    {
-        title: "JPEG to PDF",
-        content: "Convert JPG images to PDF in seconds. Easily adjust orientation and margins.",
-        link: "/jpeg-to-pdf",
-        Icon: FaFileImage,
-        iconColor: "text-red-700"
-    },
-    {
-        title: "MERGE PDF",
-        content: "Easily merge multiple PDFs into a single file while maintaining quality and formatting.",
-        link: "/card1",
-        Icon: FaFilePdf,
-        iconColor: "text-red-700"
-    },
-    {
-        title: "SPLIT PDF",
-        content: "Quickly split a PDF into multiple files with precision, keeping the original quality intact.",
-        link: "/card3",
-        Icon: FaBolt,
-        iconColor: "text-cyan-500"
-    },
-    {
-        title: "PPT to PDF",
-        content: "Convert your PowerPoint presentations to PDF effortlessly while preserving layout and design",
-        link: "/card1",
-        Icon: FaStar,
-    },
-    {
-        title: "Compress PDF",
-        content: "Reduce your PDF file size while maintaining quality—fast, secure, and easy to use.",
-        link: "/card4",
-        Icon: FaGlobe,
-    },
-    {
-        title: "Compress PDF",
-        content: "Reduce your PDF file size while maintaining quality—fast, secure, and easy to use.",
-        link: "/card4",
-        Icon: FaFileContract,
-    },
-    {
-        title: "Compress PDF",
-        content: "Reduce your PDF file size while maintaining quality—fast, secure, and easy to use.",
-        link: "/card4",
-        Icon: FaHeart,
-    }
+  {
+    title: "JPEG to PDF",
+    content: "Turn one or more JPG, JPEG or PNG images into a polished PDF.",
+    link: "/jpeg-to-pdf",
+    Icon: FileImage,
+    available: true,
+  },
+  {
+    title: "Merge PDF",
+    content: "Combine multiple PDF documents into one organized file.",
+    link: "/merge-pdf",
+    Icon: Files,
+    available: true,
+  },
+  {
+    title: "Compress PDF",
+    content: "Reduce PDF file size while keeping documents clear and readable.",
+    link: "/compress-pdf",
+    Icon: Minimize2,
+    available: true,
+  },
 ];

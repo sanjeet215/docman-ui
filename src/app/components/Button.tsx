@@ -11,9 +11,9 @@ const base =
 
 const byVariant: Record<Variant, string> = {
   primary:
-    "bg-darkButtonCust text-white hover:bg-darkBgSecondarCust focus-visible:outline-darkButtonCust dark:bg-darkButtonCust dark:hover:bg-darkButtonHoverCust",
+    "bg-lightButtonCust text-white hover:bg-lightButtonHoverCust focus-visible:outline-lightButtonCust dark:bg-darkButtonCust dark:text-darkBgCust dark:hover:bg-darkButtonHoverCust",
   secondary:
-    "bg-lightButtonCust text-white hover:bg-lightButtonHoverCust focus-visible:outline-lightButtonCust dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600",
+    "bg-[#D0C1A9] text-[#2F180B] hover:bg-[#B29F82] focus-visible:outline-[#D0C1A9] dark:bg-[#6D9773] dark:text-white dark:hover:bg-[#5B8061]",
   ghost:
     "bg-transparent text-lightTextCust hover:bg-black/5 dark:text-darkTextCust dark:hover:bg-white/10",
 };
