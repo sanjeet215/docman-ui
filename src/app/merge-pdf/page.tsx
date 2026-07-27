@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../components/Button";
+import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
 import { mergePdfs } from "../services/pdfService";
 
 type PdfItem = {
@@ -71,9 +72,11 @@ export default function MergePdfPage() {
   const [files, setFiles] = useState<PdfItem[]>([]);
   const [isMerging, setIsMerging] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [output, setOutput] = useState<ConversionOutput | null>(null);
 
   const onDrop = (accepted: File[]) => {
     setError(null);
+    setOutput(null);
     const additions = accepted.map((file) => ({
       id: `${Date.now()}-${++counter.current}-${file.name}`,
       file,
@@ -103,6 +106,7 @@ export default function MergePdfPage() {
     setError(null);
     try {
       const blob = await mergePdfs(files.map(({ file }) => file));
+      setOutput({ name: "merged.pdf", size: blob.size });
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;
@@ -173,7 +177,7 @@ export default function MergePdfPage() {
               <SortableContext items={files.map(({ id }) => id)} strategy={verticalListSortingStrategy}>
                 <div className="space-y-3">
                   <AnimatePresence>{files.map((item, index) => (
-                    <SortablePdf key={item.id} item={item} index={index} onRemove={(id) => setFiles((current) => current.filter((entry) => entry.id !== id))} />
+                    <SortablePdf key={item.id} item={item} index={index} onRemove={(id) => { setOutput(null); setFiles((current) => current.filter((entry) => entry.id !== id)); }} />
                   ))}</AnimatePresence>
                 </div>
               </SortableContext>
@@ -183,6 +187,7 @@ export default function MergePdfPage() {
       </section>
 
       <div className="mx-auto mt-5 flex max-w-5xl flex-col items-end gap-3">
+        <div className="w-full"><FileConversionSummary files={files.map(({ file }) => file)} output={output} /></div>
         {files.length === 1 && <p className="text-sm text-amber-700 dark:text-amber-300">Add one more PDF to continue.</p>}
         {error && <p role="alert" className="max-w-2xl text-sm text-rose-700 dark:text-rose-300">{error}</p>}
         {files.length > 0 && (

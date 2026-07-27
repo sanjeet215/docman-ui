@@ -7,6 +7,7 @@ const ContactPage: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -28,7 +29,7 @@ const ContactPage: React.FC = () => {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, website }),
       });
 
       if (!res.ok) {
@@ -62,6 +63,7 @@ const ContactPage: React.FC = () => {
           onSubmit={handleSubmit}
           className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md p-6 space-y-4"
         >
+          <input type="text" name="website" value={website} onChange={(event) => setWebsite(event.target.value)} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Name
@@ -127,7 +129,7 @@ const ContactPage: React.FC = () => {
 
         <section className="mt-8 text-sm text-gray-600 dark:text-gray-400">
           <p>
-            Prefer email? Reach us at <a className="underline" href="mailto:support@example.com">support@example.com</a>.
+            Prefer email? Reach us at <a className="underline" href="mailto:sanjeet215@gmail.com">sanjeet215@gmail.com</a>.
           </p>
         </section>
       </main>

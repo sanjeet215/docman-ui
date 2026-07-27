@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Download, FileImage, GripVertical, ImagePlus, LockKeyhole, Settings2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../components/Button";
+import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
 import { Select, SelectOption } from "../components/Select";
 import { imageToPdf } from "../services/pdfService";
 
@@ -101,6 +102,7 @@ const JpegToPdf: React.FC = () => {
     const [mergeAll, setMergeAll] = useState<boolean>(false);
     const [compressOutput, setCompressOutput] = useState<boolean>(true);
     const [isConverting, setIsConverting] = useState(false);
+    const [output, setOutput] = useState<ConversionOutput | null>(null);
 
     const userToggledMerge = useRef(false);
     const filesRef = useRef<FileWithPreview[]>([]);
@@ -109,6 +111,7 @@ const JpegToPdf: React.FC = () => {
     }, [files]);
 
     const onDrop = (acceptedFiles: File[]) => {
+        setOutput(null);
         const newFiles: FileWithPreview[] = acceptedFiles.map((f) => {
             idCounter.current += 1;
             return {
@@ -144,6 +147,7 @@ const JpegToPdf: React.FC = () => {
     }, []);
 
     const handleRemove = (id: string) => {
+        setOutput(null);
         setFiles((prev) => {
             const removed = prev.find((p) => p.id === id);
             if (removed) URL.revokeObjectURL(removed.preview);
@@ -174,6 +178,7 @@ const JpegToPdf: React.FC = () => {
             const downloadName = files.length === 1
                 ? `${files[0].file.name.replace(/\.[^.]+$/, "")}.pdf`
                 : "output.pdf";
+            setOutput({ name: downloadName, size: blob.size });
 
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
@@ -408,8 +413,9 @@ const JpegToPdf: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="mx-auto mt-5 flex w-full max-w-7xl justify-end"
+                    className="mx-auto mt-5 flex w-full max-w-7xl flex-col items-end gap-3"
                 >
+                    <div className="w-full"><FileConversionSummary files={files.map(({ file }) => file)} output={output} /></div>
                     <Button onClick={handleConvert} disabled={files.length === 0 || isConverting} size="lg" className="gap-2 rounded-xl px-6 py-3 shadow-lg">
                         <Download size={18} />
                         {isConverting ? "Creating your PDF..." : "Convert and download"}

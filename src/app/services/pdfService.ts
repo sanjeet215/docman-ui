@@ -105,3 +105,85 @@ export async function compressPdfs(
     fileName: match?.[1] ?? (options.mergeAll ? "compressed-merged.pdf" : "compressed-pdfs.zip"),
   };
 }
+
+export async function addPageNumbers(
+  file: File,
+  options: { position: string; startNumber: number; fontSize: number }
+): Promise<{ blob: Blob; fileName: string }> {
+  const form = new FormData();
+  form.append("file", file, file.name);
+  form.append("pageNumberDTO", new Blob([JSON.stringify(options)], { type: "application/json" }));
+
+  const response = await fetch("/api/pdf/page-numbers", { method: "POST", body: form });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to add page numbers (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^"]+)"?/i);
+  return { blob: await response.blob(), fileName: match?.[1] ?? "numbered.pdf" };
+}
+
+export async function htmlToPdf(options: {
+  html: string;
+  fileName: string;
+  pageSize: "A4" | "Letter" | "Legal";
+  orientation: "portrait" | "landscape";
+  marginMm: number;
+  compress: boolean;
+  compressionQuality: number;
+}): Promise<{ blob: Blob; fileName: string }> {
+  const response = await fetch("/api/pdf/html-to-pdf", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(options),
+  });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to convert HTML (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^"]+)"?/i);
+  return { blob: await response.blob(), fileName: match?.[1] ?? "converted.pdf" };
+}
+
+export async function rtfToPdf(
+  file: File,
+  options: {
+    fileName: string;
+    pageSize: "A4" | "Letter" | "Legal";
+    orientation: "portrait" | "landscape";
+    marginMm: number;
+    compress: boolean;
+    compressionQuality: number;
+  }
+): Promise<{ blob: Blob; fileName: string }> {
+  const form = new FormData();
+  form.append("file", file, file.name);
+  form.append("options", new Blob([JSON.stringify(options)], { type: "application/json" }));
+  const response = await fetch("/api/pdf/rtf-to-pdf", { method: "POST", body: form });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to convert RTF (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^"]+)"?/i);
+  return { blob: await response.blob(), fileName: match?.[1] ?? "converted.pdf" };
+}
+
+export async function splitPdf(
+  file: File,
+  options: { pages: string; separateFiles: boolean }
+): Promise<{ blob: Blob; fileName: string }> {
+  const form = new FormData();
+  form.append("file", file, file.name);
+  form.append("options", new Blob([JSON.stringify(options)], { type: "application/json" }));
+  const response = await fetch("/api/pdf/split", { method: "POST", body: form });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to split PDF (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^"]+)"?/i);
+  return { blob: await response.blob(), fileName: match?.[1] ?? "split-pdf.zip" };
+}

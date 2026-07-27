@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../components/Button";
+import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
 import { Select, type SelectOption } from "../components/Select";
 import { compressPdfs } from "../services/pdfService";
 
@@ -52,6 +53,7 @@ export default function CompressPdfPage() {
   const [mergeAll, setMergeAll] = useState(true);
   const [working, setWorking] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [output, setOutput] = useState<ConversionOutput | null>(null);
 
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     accept: { "application/pdf": [".pdf"] },
@@ -59,6 +61,7 @@ export default function CompressPdfPage() {
     noClick: files.length > 0,
     onDrop: (accepted) => {
       setError(null);
+      setOutput(null);
       setFiles((current) => [...current, ...accepted.map((file) => ({ id: `${Date.now()}-${++counter.current}-${file.name}`, file }))]);
     },
   });
@@ -78,6 +81,7 @@ export default function CompressPdfPage() {
         compressionQuality: Number(quality),
         mergeAll: files.length > 1 && mergeAll,
       });
+      setOutput({ name: result.fileName, size: result.blob.size });
       const url = URL.createObjectURL(result.blob);
       const anchor = document.createElement("a");
       anchor.href = url;
@@ -129,7 +133,7 @@ export default function CompressPdfPage() {
               </div>
               <DndContext collisionDetection={closestCenter} onDragEnd={reorder}>
                 <SortableContext items={files.map(({ id }) => id)} strategy={verticalListSortingStrategy}>
-                  <div className="space-y-3"><AnimatePresence>{files.map((item, index) => <PdfRow key={item.id} item={item} index={index} remove={() => setFiles((current) => current.filter(({ id }) => id !== item.id))} />)}</AnimatePresence></div>
+                  <div className="space-y-3"><AnimatePresence>{files.map((item, index) => <PdfRow key={item.id} item={item} index={index} remove={() => { setOutput(null); setFiles((current) => current.filter(({ id }) => id !== item.id)); }} />)}</AnimatePresence></div>
                 </SortableContext>
               </DndContext>
             </div>
@@ -169,6 +173,7 @@ export default function CompressPdfPage() {
       </div>
 
       <div className="mx-auto mt-5 flex max-w-6xl flex-col items-end gap-3">
+        <div className="w-full"><FileConversionSummary files={files.map(({ file }) => file)} output={output} /></div>
         {error && <p role="alert" className="text-sm text-rose-700 dark:text-rose-300">{error}</p>}
         {files.length > 0 && <Button onClick={compress} disabled={working} size="lg" className="gap-2 rounded-xl px-6 py-3 shadow-lg"><Download size={18} /> {working ? "Compressing PDFs..." : `Compress ${files.length} ${files.length === 1 ? "PDF" : "PDFs"}`}</Button>}
       </div>
