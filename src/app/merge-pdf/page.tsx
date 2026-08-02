@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../components/Button";
 import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
+import { ToolExplanation } from "../components/ToolExplanation";
 import { mergePdfs } from "../services/pdfService";
 
 type PdfItem = {
@@ -196,6 +197,11 @@ export default function MergePdfPage() {
           </Button>
         )}
       </div>
+      <ToolExplanation maxWidth="max-w-5xl" title="What the Merge PDF tool does" description="Combine two or more PDF documents into one continuous file without changing their original pages." details={[
+        { title: "Choose multiple PDFs", description: "Add all documents that belong in the final combined file." },
+        { title: "Set the correct order", description: "Drag files up or down so pages appear in the sequence you expect." },
+        { title: "Receive one PDF", description: "The completed download contains every source document in your selected order." },
+      ]} />
     </main>
   );
 }

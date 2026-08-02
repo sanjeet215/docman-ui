@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../components/Button";
 import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
+import { ToolExplanation } from "../components/ToolExplanation";
 import { Select, type SelectOption } from "../components/Select";
 import { compressPdfs } from "../services/pdfService";
 
@@ -177,6 +178,11 @@ export default function CompressPdfPage() {
         {error && <p role="alert" className="text-sm text-rose-700 dark:text-rose-300">{error}</p>}
         {files.length > 0 && <Button onClick={compress} disabled={working} size="lg" className="gap-2 rounded-xl px-6 py-3 shadow-lg"><Download size={18} /> {working ? "Compressing PDFs..." : `Compress ${files.length} ${files.length === 1 ? "PDF" : "PDFs"}`}</Button>}
       </div>
+      <ToolExplanation title="What the Compress PDF tool does" description="Reduce the storage and transfer size of PDFs, especially documents containing large images." details={[
+        { title: "Choose the balance", description: "Select stronger compression for smaller files or higher quality for clearer images." },
+        { title: "Process one or many", description: "Compress PDFs individually or merge multiple compressed documents into one output." },
+        { title: "See the result", description: "Compare original and generated sizes to understand the actual reduction achieved." },
+      ]} />
     </main>
   );
 }

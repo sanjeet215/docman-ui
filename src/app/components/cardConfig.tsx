@@ -1,4 +1,4 @@
-import { CodeXml, FileImage, Files, FileType2, ListOrdered, Minimize2, Scissors } from "lucide-react";
+import { CodeXml, FileImage, Files, FileType2, ListOrdered, Lock, LockOpen, Minimize2, Scissors, Stamp } from "lucide-react";
 
 export const cardConfig = [
   {
@@ -48,6 +48,27 @@ export const cardConfig = [
     content: "Separate one page or a whole set into independent PDF files.",
     link: "/split-pdf",
     Icon: Scissors,
+    available: true,
+  },
+  {
+    title: "Protect PDF",
+    content: "Add password protection to one PDF or a merged collection.",
+    link: "/protect-pdf",
+    Icon: Lock,
+    available: true,
+  },
+  {
+    title: "Unlock PDF",
+    content: "Remove password protection from a PDF you are authorized to access.",
+    link: "/unlock-pdf",
+    Icon: LockOpen,
+    available: true,
+  },
+  {
+    title: "Watermark PDF",
+    content: "Add a custom text watermark to every page of a PDF document.",
+    link: "/watermark-pdf",
+    Icon: Stamp,
     available: true,
   },
 ];

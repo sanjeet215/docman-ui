@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
+import { ToolExplanation } from "../components/ToolExplanation";
 import { Select, type SelectOption } from "../components/Select";
 import { rtfToPdf } from "../services/pdfService";
 
@@ -103,6 +104,11 @@ export default function RtfToPdfPage() {
         {error && <p role="alert" className="text-sm text-rose-700 dark:text-rose-300">{error}</p>}
         <Button onClick={convert} disabled={working || !file} size="lg" className="gap-2 rounded-xl px-6 py-3 shadow-lg"><Download size={18} /> {working ? "Converting PDF..." : "Convert and download"}</Button>
       </div>
+      <ToolExplanation title="What the RTF to PDF tool does" description="Turn a Rich Text Format document into a portable PDF while retaining standard text styling and document structure." details={[
+        { title: "Preserve common formatting", description: "Keep headings, font styles, alignment, lists and other standard RTF formatting." },
+        { title: "Choose the page layout", description: "Set paper size, portrait or landscape orientation and page margins." },
+        { title: "Create a shareable copy", description: "Download a named PDF with optional output compression enabled by default." },
+      ]} />
     </main>
   );
 }

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../components/Button";
 import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
+import { ToolExplanation } from "../components/ToolExplanation";
 import { splitPdf } from "../services/pdfService";
 
 function formatSize(bytes: number) {
@@ -112,6 +113,11 @@ export default function SplitPdfPage() {
         {error && <p role="alert" className="max-w-xl text-right text-sm text-rose-700 dark:text-rose-300">{error}</p>}
         {file && <Button onClick={process} disabled={working} size="lg" className="gap-2 rounded-xl px-6 py-3 shadow-lg"><Download size={18} /> {working ? "Splitting PDF..." : "Split and download"}</Button>}
       </div>
+      <ToolExplanation title="What the Split PDF tool does" description="Extract exactly the pages you need from a larger PDF without altering the source document." details={[
+        { title: "Select pages or ranges", description: "Enter pages such as 1, 3-5, 8, or leave the field blank to process every page." },
+        { title: "Choose the output style", description: "Create one PDF per selected page or keep the selected pages together." },
+        { title: "Download the result", description: "Separate pages arrive in a ZIP; grouped pages arrive as one extracted PDF." },
+      ]} />
     </main>
   );
 }

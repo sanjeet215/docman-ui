@@ -15,6 +15,7 @@ import { ArrowLeft, Download, FileImage, GripVertical, ImagePlus, LockKeyhole, S
 import Link from "next/link";
 import { Button } from "../components/Button";
 import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
+import { ToolExplanation } from "../components/ToolExplanation";
 import { Select, SelectOption } from "../components/Select";
 import { imageToPdf } from "../services/pdfService";
 
@@ -422,6 +423,11 @@ const JpegToPdf: React.FC = () => {
                     </Button>
                 </motion.div>
             )}
+            <ToolExplanation maxWidth="max-w-7xl" title="What the JPEG to PDF tool does" description="Create a single, easy-to-share PDF from one image or an ordered collection of images." details={[
+                { title: "Arrange your pages", description: "Drag images into the exact order they should appear in the finished document." },
+                { title: "Control the layout", description: "Choose page size, orientation, margins and border treatment before conversion." },
+                { title: "Download a polished PDF", description: "Merge multiple images and optionally compress the output for easier sharing." },
+            ]} />
         </main>
     );
 };

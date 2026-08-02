@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Button } from "../components/Button";
 import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
+import { ToolExplanation } from "../components/ToolExplanation";
 import { Select, type SelectOption } from "../components/Select";
 import { htmlToPdf } from "../services/pdfService";
 
@@ -124,6 +125,11 @@ export default function HtmlToPdfPage() {
         {error && <p role="alert" className="text-sm text-rose-700 dark:text-rose-300">{error}</p>}
         <Button onClick={convert} disabled={working || !html.trim()} size="lg" className="gap-2 rounded-xl px-6 py-3 shadow-lg"><Download size={18} /> {working ? "Rendering PDF..." : "Convert and download"}</Button>
       </div>
+      <ToolExplanation maxWidth="max-w-7xl" title="What the HTML to PDF tool does" description="Render HTML and inline CSS as a print-ready PDF using the same browser engine used for modern web pages." details={[
+        { title: "Write or upload HTML", description: "Paste a document directly or load an existing HTML file into the editor." },
+        { title: "Preview safely", description: "Review the layout before conversion while scripts and external requests remain blocked." },
+        { title: "Control the printed page", description: "Choose paper size, orientation, margins, filename and optional compression." },
+      ]} />
     </main>
   );
 }

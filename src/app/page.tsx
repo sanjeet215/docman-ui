@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, FileImage, Files, LockKeyhole, Minimize2, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, LockKeyhole, Sparkles, Zap } from "lucide-react";
 import Card from "./components/Card";
 import { cardConfig } from "./components/cardConfig";
 
@@ -60,24 +60,30 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="my-5 grid grid-cols-2 gap-3">
-                {[
-                  { icon: FileImage, label: "Convert images", tone: "bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300" },
-                  { icon: Files, label: "Combine files", tone: "bg-sky-50 text-sky-600 dark:bg-sky-500/10 dark:text-sky-300" },
-                  { icon: Minimize2, label: "Compress PDFs", tone: "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300" },
-                  { icon: Sparkles, label: "More coming", tone: "bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-300" },
-                ].map(({ icon: Icon, label, tone }) => (
-                  <div key={label} className="rounded-2xl border border-[#D0C1A9]/70 bg-white p-4 dark:border-[#6D9773]/40 dark:bg-[#0C3B2E]">
-                    <div className={`mb-3 grid h-9 w-9 place-items-center rounded-xl ${tone}`}>
-                      <Icon size={18} />
-                    </div>
-                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</p>
-                  </div>
-                ))}
+                {cardConfig.slice(0, 6).map(({ Icon, title, link }, index) => {
+                  const tones = [
+                    "bg-[#5C341E]/10 text-[#5C341E] dark:bg-[#FFBA00]/15 dark:text-[#FFBA00]",
+                    "bg-amber-50 text-amber-700 dark:bg-[#BB8A52]/20 dark:text-[#FFBA00]",
+                    "bg-emerald-50 text-emerald-700 dark:bg-[#6D9773]/20 dark:text-[#9AC3A0]",
+                  ];
+                  return (
+                    <Link
+                      key={title}
+                      href={link}
+                      className="group flex items-center gap-3 rounded-2xl border border-[#D0C1A9]/70 bg-white p-3.5 transition hover:-translate-y-0.5 hover:border-[#5C341E] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#5C341E]/30 dark:border-[#6D9773]/40 dark:bg-[#0C3B2E] dark:hover:border-[#FFBA00]"
+                    >
+                      <div className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl ${tones[index % tones.length]}`}>
+                        <Icon size={18} />
+                      </div>
+                      <p className="min-w-0 text-sm font-semibold leading-5 text-slate-700 group-hover:text-[#5C341E] dark:text-slate-200 dark:group-hover:text-[#FFBA00]">{title}</p>
+                    </Link>
+                  );
+                })}
               </div>
-              <div className="flex items-center justify-between rounded-xl bg-[#D0C1A9]/20 px-4 py-3 text-sm dark:bg-[#0C3B2E]">
-                <span className="text-slate-500 dark:text-slate-400">Built to grow with your workflow</span>
-                <ArrowRight size={16} className="text-indigo-600 dark:text-indigo-300" />
-              </div>
+              <Link href="#tools" className="group flex items-center justify-between rounded-xl bg-[#D0C1A9]/20 px-4 py-3 text-sm transition hover:bg-[#D0C1A9]/35 dark:bg-[#0C3B2E] dark:hover:bg-[#0C3B2E]/70">
+                <span className="font-medium text-slate-600 dark:text-slate-300">{cardConfig.length} tools ready to use</span>
+                <span className="inline-flex items-center gap-1.5 font-semibold text-[#5C341E] dark:text-[#FFBA00]">View all <ArrowRight size={16} className="transition group-hover:translate-x-1" /></span>
+              </Link>
             </div>
           </div>
         </div>

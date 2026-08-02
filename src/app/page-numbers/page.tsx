@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../components/Button";
 import { FileConversionSummary, type ConversionOutput } from "../components/FileConversionSummary";
+import { ToolExplanation } from "../components/ToolExplanation";
 import { Select, type SelectOption } from "../components/Select";
 import { addPageNumbers } from "../services/pdfService";
 
@@ -130,6 +131,11 @@ export default function PageNumbersPage() {
         {error && <p role="alert" className="text-sm text-rose-700 dark:text-rose-300">{error}</p>}
         {file && <Button onClick={process} disabled={working} size="lg" className="gap-2 rounded-xl px-6 py-3 shadow-lg"><Download size={18} /> {working ? "Adding page numbers..." : "Add page numbers"}</Button>}
       </div>
+      <ToolExplanation title="What the Page Numbers tool does" description="Add consistent, readable numbering to every page while preserving the original PDF content." details={[
+        { title: "Choose the placement", description: "Position numbers at the top or bottom and align them left, center or right." },
+        { title: "Set the numbering", description: "Choose the first displayed number and a suitable text size." },
+        { title: "Receive a numbered copy", description: "Your original file stays unchanged; a new numbered PDF is downloaded." },
+      ]} />
     </main>
   );
 }

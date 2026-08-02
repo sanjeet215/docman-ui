@@ -187,3 +187,80 @@ export async function splitPdf(
   const match = disposition.match(/filename="?([^"]+)"?/i);
   return { blob: await response.blob(), fileName: match?.[1] ?? "split-pdf.zip" };
 }
+
+export async function watermarkPdf(
+  file: File,
+  options: {
+    watermarkText: string;
+    watermarkFontSize: number;
+    watermarkPosition: string;
+    watermarkAngle: number;
+    watermarkOpacity: string;
+    watermarkColor: string;
+  }
+): Promise<{ blob: Blob; fileName: string }> {
+  const form = new FormData();
+  form.append("file", file, file.name);
+  form.append("options", new Blob([JSON.stringify(options)], { type: "application/json" }));
+  const response = await fetch("/api/pdf/watermark", { method: "POST", body: form });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to add watermark (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^"]+)"?/i);
+  return { blob: await response.blob(), fileName: match?.[1] ?? "watermarked.pdf" };
+}
+
+export class PdfPasswordRequiredError extends Error {
+  constructor() {
+    super("This PDF is password protected. Enter the correct password.");
+    this.name = "PdfPasswordRequiredError";
+  }
+}
+
+export async function unlockPdf(
+  file: File,
+  options: { password?: string; compress: boolean; compressionQuality: number }
+): Promise<{ blob: Blob; fileName: string; wasProtected: boolean }> {
+  const form = new FormData();
+  form.append("file", file, file.name);
+  if (options.password) form.append("password", options.password);
+  form.append("compress", String(options.compress));
+  form.append("compressionQuality", String(options.compressionQuality));
+  const response = await fetch("/api/pdf/unlock", { method: "POST", body: form });
+  if (!response.ok) {
+    if (response.status === 422 && response.headers.get("x-password-required") === "true") {
+      throw new PdfPasswordRequiredError();
+    }
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to unlock PDF (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^";]+)"?/i);
+  return {
+    blob: await response.blob(),
+    fileName: match?.[1] ?? "unlocked.pdf",
+    wasProtected: response.headers.get("x-was-protected") === "true",
+  };
+}
+
+export async function protectPdfs(
+  files: File[],
+  options: { password: string; mergeAll: boolean; compress: boolean; compressionQuality: number }
+): Promise<{ blob: Blob; fileName: string }> {
+  const form = new FormData();
+  files.forEach((file) => form.append("files", file, file.name));
+  form.append("password", options.password);
+  form.append("mergeAll", String(options.mergeAll));
+  form.append("compress", String(options.compress));
+  form.append("compressionQuality", String(options.compressionQuality));
+  const response = await fetch("/api/pdf/protect", { method: "POST", body: form });
+  if (!response.ok) {
+    const message = await response.text().catch(() => "");
+    throw new Error(message || `Failed to protect PDF (status ${response.status})`);
+  }
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const match = disposition.match(/filename="?([^";]+)"?/i);
+  return { blob: await response.blob(), fileName: match?.[1] ?? "protected.pdf" };
+}
