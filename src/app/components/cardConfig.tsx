@@ -1,6 +1,13 @@
-import { CodeXml, FileImage, Files, FileType2, ListOrdered, Lock, LockOpen, Minimize2, Scissors, Stamp } from "lucide-react";
+import { CodeXml, FileImage, Files, FileType2, FolderCog, ListOrdered, Lock, LockOpen, Minimize2, Scissors, Stamp } from "lucide-react";
 
 export const cardConfig = [
+  {
+    title: "Directory workflow",
+    content: "Convert, compress and merge supported files from an entire folder.",
+    link: "/workflows",
+    Icon: FolderCog,
+    available: true,
+  },
   {
     title: "JPEG to PDF",
     content: "Turn one or more JPG, JPEG or PNG images into a polished PDF.",
