@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./styles/globals.css";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import Navbar from "./components/NavBar";
+import PageViewTracker from "./components/PageViewTracker";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-[#E2E1DF] text-[#2F180B] dark:bg-[#0C3B2E] dark:text-white">
+        <Suspense fallback={null}><PageViewTracker /></Suspense>
         <header className="sticky top-0 z-50 border-b border-[#D0C1A9] bg-white/90 backdrop-blur-xl dark:border-[#6D9773]/40 dark:bg-[#0C3B2E]/90">
           <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
             <Navbar />
